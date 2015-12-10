@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 * The factor by which to scale the resolution of the game. By default, the
 	 * resolution is 320 by 240.
 	 */
-	public static final int SCALE = 3;
+	public static final int SCALE = 4;
 
 	private Thread thread;
 	private boolean isRunning;
@@ -125,7 +125,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Display FPS for debugging
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.PLAIN, 25));
-		g.drawString("FPS: " + df.format(currentFPS) + "", 3, 24);
+		g.setFont(new Font("Arial", Font.PLAIN, 30));
+		g.drawString("FPS: " + df.format(currentFPS) + "", 5, 27);
 	}
 }

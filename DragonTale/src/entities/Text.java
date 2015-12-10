@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -18,7 +19,8 @@ public class Text extends Entity {
 	@Override
 	public void draw(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setFont(font);
+		g.setFont(new Font("Arial", 50, Font.BOLD));
+		g.setColor(Color.BLACK);
 		g.drawString(text, (int) getScaled(getXPosition()), (int) getScaled(getYPosition()));
 	}
 

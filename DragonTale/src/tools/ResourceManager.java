@@ -34,7 +34,7 @@ public class ResourceManager {
 	 * resource types
 	 */
 	public enum ResourceType {
-		BACKGROUND, ELEMENT, MUSIC;
+		BACKGROUND, ELEMENT, MUSIC, TEXT;
 	};
 
 	// Image resources
@@ -86,8 +86,7 @@ public class ResourceManager {
 	 * A hash map with keys of type Integer and values of type String. This map
 	 * is used to store text binded by the event number.
 	 */
-	@SuppressWarnings("unused")
-	private static HashMap<String, String> text = new HashMap<String, String>();
+	private static LinkedHashMap<String, Text> text = new LinkedHashMap<String, Text>();
 
 	/**
 	 * A hash map with keys of type String and values of type Clip. This map is
@@ -169,6 +168,9 @@ public class ResourceManager {
 				break;
 			case MUSIC:
 				loadMusic(resourceData[1], resourceData[2]);
+				break;
+			case TEXT:
+				loadText(resourceData[1], resourceData[2]);
 				break;
 			// This code should never execute if the data file is properly
 			// formatted.
@@ -257,9 +259,9 @@ public class ResourceManager {
 		double depthRatio = loadDouble(resourceData[3]);
 		
 		String string = resourceData[4];
-		Font font = loadFont(resourceData[5]);
+		//Font font = loadFont(resourceData[5]);
 		
-		text.put(key, new Text(xPosition, yPosition, zPosition, depthRatio, string, font));
+		text.put(key, new Text(xPosition, yPosition, zPosition, depthRatio, string, new Font("Arial", Font.BOLD, 25)));
 	}
 
 	
@@ -325,5 +327,9 @@ public class ResourceManager {
 
 	public static HashMap<String, Clip> getMusic() {
 		return music;
+	}
+	
+	public static HashMap<String, Text> getText() {
+		return text;
 	}
 }

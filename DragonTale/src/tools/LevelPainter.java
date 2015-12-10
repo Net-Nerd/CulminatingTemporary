@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import entities.Background;
 import entities.Terrain;
+import entities.Text;
 
 public class LevelPainter{
 
@@ -16,6 +17,10 @@ public class LevelPainter{
 		for (Terrain element : ResourceManager.getElements().values()) {
 			element.scroll();
 			element.draw(g);
+		}
+		
+		for (Text text : ResourceManager.getText().values()) {
+			text.draw(g);
 		}
 	}
 }

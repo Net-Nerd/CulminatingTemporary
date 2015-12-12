@@ -9,8 +9,10 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -45,9 +47,9 @@ public class ResourceManager {
 	public enum ImageType {
 		SINGLE, SHEET;
 	}
-
+	
 	/**
-	 * A hash map with keys of type String and values of type BufferedImage.
+	 * A hash map with keys of type String and values of type Background
 	 * This map is used to store the background images binded by the name.
 	 */
 	private static LinkedHashMap<String, Background> backgrounds = new LinkedHashMap<String, Background>();
@@ -136,6 +138,11 @@ public class ResourceManager {
 	private ResourceManager() {
 	}
 
+	/**
+	 * Loads a file from the specified source path.
+	 * @param path The path of the file.
+	 * @return A new file object.
+	 */
 	private static File loadFile(String path) {
 		return new File(ResourceManager.class.getResource(path).getFile());
 	}
@@ -241,34 +248,35 @@ public class ResourceManager {
 		BufferedImage image = loadImage(resourceData[6]);
 		terrain.put(key, new Terrain(xPosition, yPosition, zPosition, depthRatio, xVelocity, yVelocity, image));
 	}
-	
+
 	public static void loadMusic(String key, String data) {
 		String[] resourceData = data.split(";");
-		
+
 		Clip track = loadAudio(resourceData[0]);
 
 		music.put(key, track);
 	}
-	
+
 	public static void loadText(String key, String data) {
 		String[] resourceData = data.split(";");
-		
+
 		int xPosition = loadInteger(resourceData[0]);
 		int yPosition = loadInteger(resourceData[1]);
 		int zPosition = loadInteger(resourceData[2]);
-		double depthRatio = loadDouble(resourceData[3]);
-		
-		String string = resourceData[4];
-		//Font font = loadFont(resourceData[5]);
-		
-		text.put(key, new Text(xPosition, yPosition, zPosition, depthRatio, string, new Font("Arial", Font.BOLD, 25)));
+
+		String string = resourceData[3];
+		Font font = loadFont(resourceData[4]);
+
+		text.put(key, new Text(xPosition, yPosition, zPosition, string, font));
 	}
 
-	
-	private static Font loadFont(String path) {
+	private static Font loadFont(String requirements) {
+		String[] resourceData = requirements.split(",");
 		Font font = null;
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, loadFile(path));
+			font = Font.createFont(Font.TRUETYPE_FONT, loadFile(resourceData[0]));			
+			font = font.deriveFont(Integer.parseInt(resourceData[1]), Integer.parseInt(resourceData[2]));
+			
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -328,7 +336,7 @@ public class ResourceManager {
 	public static HashMap<String, Clip> getMusic() {
 		return music;
 	}
-	
+
 	public static HashMap<String, Text> getText() {
 		return text;
 	}

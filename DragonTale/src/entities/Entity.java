@@ -17,10 +17,10 @@ public abstract class Entity {
 	private double yPosition;
 
 	/**
-	 * The current depth position of this instance.
+	 * The current depth of this instance. This field is the relative position
+	 * and not the actual position in the z dimension.
 	 */
-	@SuppressWarnings("unused")
-	private double zPosition;
+	private int zPosition;
 
 	/**
 	 * The width of this instance.
@@ -51,24 +51,16 @@ public abstract class Entity {
 	 */
 	public static final int SCALE = GamePanel.SCALE;
 
-	/**
-	 * The parallax factor of this instance. The xScrollSpeed and yScrollSpeed
-	 * fields will be scaled by this factor. This field is final.
-	 */
-	private final double DEPTH_RATIO;
-
-	public Entity(double xPosition, double yPosition, int zPosition, double depthRatio) {
+	public Entity(double xPosition, double yPosition, int zPosition) {
 		setXPosition(xPosition);
 		setYPosition(yPosition);
 		setZPosition(zPosition);
-
-		this.DEPTH_RATIO = depthRatio;
 	}
-	
+
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	
+
 	public void setHeight(int height) {
 		this.height = height;
 	}
@@ -80,7 +72,7 @@ public abstract class Entity {
 	 *            The magnitude to set the scroll speed to.
 	 */
 	public void setXScroll(double magnitude) {
-		xScrollSpeed = (magnitude * DEPTH_RATIO);
+		xScrollSpeed = magnitude;
 	}
 
 	/**
@@ -91,9 +83,9 @@ public abstract class Entity {
 	 */
 
 	public void setYScroll(double magnitude) {
-		yScrollSpeed = (magnitude * DEPTH_RATIO);
+		yScrollSpeed = magnitude;
 	}
-	
+
 	/**
 	 * Sets the horizontal position of this instance.
 	 * 
@@ -124,7 +116,7 @@ public abstract class Entity {
 	 * @param g
 	 *            The graphics object.
 	 */
-	
+
 	public abstract void draw(Graphics2D g);
 
 	/**
@@ -138,7 +130,7 @@ public abstract class Entity {
 			this.xPosition -= (GamePanel.WIDTH + this.width);
 		}
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
@@ -146,7 +138,7 @@ public abstract class Entity {
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public double getXScrollSpeed() {
 		return xScrollSpeed;
 	}
@@ -172,7 +164,11 @@ public abstract class Entity {
 	public double getYPosition() {
 		return yPosition;
 	}
-	
+
+	public int getZPosition() {
+		return zPosition;
+	}
+
 	public int getScaled(int magnitude) {
 		return magnitude * SCALE;
 	}

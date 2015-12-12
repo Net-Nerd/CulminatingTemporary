@@ -8,6 +8,11 @@ import entities.Text;
 
 public class LevelPainter{
 
+	private String[] backgroundOrder;
+	
+	public void updatePainter() {
+		
+	}
 	public void drawLevel(Graphics2D g) {
 		for (Background background : ResourceManager.getBackgrounds().values()) {
 			background.scroll();

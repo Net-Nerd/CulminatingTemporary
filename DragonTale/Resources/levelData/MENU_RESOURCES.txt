@@ -10,5 +10,5 @@ ELEMENT:TITLE:55;24;0;1;0;0;/misc/DRG_TXT.png
 ELEMENT:TREE1:-40;53;0;1;0;0;/elements/TREE_REG_1.png
 ELEMENT:GRASS:0;208;0;1;0;0;/Tile/GR_1.png
 ELEMENT:GRASS2:0;176;0;1;0;0;/Tile/FL_1.png
+TEXT:START_INFO:135;230;0;Press any key...;/fonts/VCR_OSD_MONO.ttf,1,25
 MUSIC:THEME:/music/TITLE_01.wav
-TEXT:START_INFO:40;50;0;0;Press any key...;/fonts/VCR_OSD_MONO.ttf

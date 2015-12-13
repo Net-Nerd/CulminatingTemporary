@@ -1,0 +1,2 @@
+TEXT:LEVEL_DATA:/level_data/loading.dat.txt
+IMAGE:IMG_BLACK_SCREEN:/backgrounds/BLACK_SCREEN.png

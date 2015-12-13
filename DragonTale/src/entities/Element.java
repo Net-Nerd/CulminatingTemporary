@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-public class Terrain extends Entity {
+public class Element extends Entity {
 
 	/**
 	 * The default image of this instance.
@@ -25,7 +25,7 @@ public class Terrain extends Entity {
 
 	private double DEPTH_RATIO;
 
-	public Terrain(double xPosition, double yPosition, int zPosition, double depthRatio, double xVelocity,
+	public Element(double xPosition, double yPosition, int zPosition, double depthRatio, double xVelocity,
 			double yVelocity, BufferedImage image) {
 		super(xPosition, yPosition, zPosition);
 

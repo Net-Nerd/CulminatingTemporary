@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private long targetTime = 1000 / FPS;
 
 	// FIXME: This is temporary.
-	MenuState mainMenu = new MenuState("/levelData/MENU_RESOURCES.txt");
+	MenuState mainMenu = new MenuState("/level_resources/menu.res.txt");
 
 	// Temporary Variables
 	DecimalFormat df = new DecimalFormat("0.00");

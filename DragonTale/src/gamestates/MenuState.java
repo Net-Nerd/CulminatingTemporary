@@ -10,7 +10,7 @@ public class MenuState extends GameState {
 	}
 
 	@Override
-	public void initalize() {
+	public void initialize() {
 	}
 
 	@Override

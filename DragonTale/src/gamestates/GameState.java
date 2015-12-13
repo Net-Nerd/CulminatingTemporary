@@ -2,15 +2,19 @@ package gamestates;
 
 import java.awt.Graphics2D;
 
+import managers.GameStateManager;
+
 public abstract class GameState {
 
 	private final String LEVEL_PATH;
+	private boolean paused;
 
 	public GameState(String path) {
 		this.LEVEL_PATH = path;
+		initialize();
 	}
 
-	public void initalize() {
+	public void initialize() {
 		
 	}
 
@@ -34,5 +38,13 @@ public abstract class GameState {
 
 	public String getLevelPath() {
 		return LEVEL_PATH;
+	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void togglePause() {
+		paused = !paused;
 	}
 }

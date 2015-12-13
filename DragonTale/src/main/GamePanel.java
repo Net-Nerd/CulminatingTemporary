@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import javax.swing.JPanel;
 
 import gamestates.MenuState;
+import managers.GameStateManager;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -44,9 +45,6 @@ public class GamePanel extends JPanel implements Runnable {
 	 * The target time in milliseconds for each frame.
 	 */
 	private long targetTime = 1000 / FPS;
-
-	// FIXME: This is temporary.
-	MenuState mainMenu = new MenuState("/level_resources/menu.res.txt");
 
 	// Temporary Variables
 	DecimalFormat df = new DecimalFormat("0.00");
@@ -121,8 +119,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		mainMenu.draw((Graphics2D) g);
-
+		GameStateManager.getCurrentState().draw((Graphics2D)g);
+		
 		// Display FPS for debugging
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.PLAIN, 30));

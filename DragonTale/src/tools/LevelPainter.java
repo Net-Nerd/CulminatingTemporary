@@ -12,11 +12,7 @@ public class LevelPainter{
 	private LevelPainter() {
 		
 	}
-	
-	private String[] backgroundOrder;
-	
-
-	
+		
 	public void updatePainter() {
 		
 	}

@@ -1,6 +1,7 @@
 package managers;
 
 import gamestates.GameState;
+import gamestates.LoadingState;
 import tools.EntityBuilder;
 
 /**
@@ -13,45 +14,62 @@ import tools.EntityBuilder;
  */
 public class GameStateManager {
 
-	private enum StateType {
-		MENU(0), LEVEL(1), MINIGAME(2), LOADING(3), ERROR(4);
+	/**
+	 * The currently active state.
+	 */
+	private static GameState currentState;
 
-		private int state;
+	/**
+	 * The previously active state.
+	 */
+	private static GameState previousState;
 
-		StateType(int state) {
-			this.state = state;
+	/**
+	 * This class cannot be instantiated.
+	 */
+	private GameStateManager() {
+	}
+
+	/**
+	 * Changes the current state to the specified state and unloads the previous
+	 * state and all associated resources.
+	 * 
+	 * @param state
+	 *            the state to switch to.
+	 */
+	public static void setState(GameState state) {
+		if (previousState!=null) {
+			unloadState();
 		}
+		previousState = currentState;
+		currentState = state;
+		loadState();
 	}
 
-	private boolean isPaused = false;
-	private GameState currentState;
-	private GameState previousState;
-
-	public GameStateManager() {
-		this.currentState
-	}
-
-	private void loadState() {
+	/**
+	 * Loads the current state and all associated resources.
+	 */
+	private static void loadState() {
 		ResourceManager.loadResources(currentState.getLevelPath());
 		EntityBuilder.buildLevel();
 	}
 
-	private void unloadState() {
+	/**
+	 * Unloads the current state and all associated resources.
+	 */
+	private static void unloadState() {
 		EntityBuilder.destoryEntities();
 		ResourceManager.unloadResources();
 	}
 
-	public void setState(int state) {
-
+	public static void togglePause() {
+		currentState.togglePause();
 	}
 
-	public void pause(boolean p) {
-		isPaused = p;
+	public static void tick() {
 	}
 
-	public void tick() {
-		if (isPaused) {
-			return;
-		}
+	public static GameState getCurrentState() {
+		return currentState;
 	}
 }

@@ -133,7 +133,7 @@ public class ResourceManager {
 			fileReader.close();
 			return assetData;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			GameStateManager.setState(new ErrorState());
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -245,6 +245,7 @@ public class ResourceManager {
 	}
 
 	public static void unloadResources() {
+		resourceData.clear();
 		text.clear();
 		images.clear();
 		audio.clear();

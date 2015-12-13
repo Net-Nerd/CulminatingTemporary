@@ -8,6 +8,7 @@ import javax.sound.sampled.Clip;
 
 import entities.Background;
 import entities.Element;
+import entities.Text;
 import managers.ResourceManager;
 
 /**
@@ -21,7 +22,7 @@ import managers.ResourceManager;
 public class EntityBuilder {
 
 	private enum EntityType {
-		BACKGROUND, ELEMENT;
+		BACKGROUND, ELEMENT, HUD;
 	}
 
 	private static ArrayList<String> levelData;
@@ -40,6 +41,12 @@ public class EntityBuilder {
 	 * is used to store elements for a level.
 	 */
 	private static LinkedHashMap<String, Element> elements = new LinkedHashMap<String, Element>();
+
+	/**
+	 * A hash map with keys of type String and values of type Text. This map is
+	 * used to store elements for a level.
+	 */
+	private static LinkedHashMap<String, Text> HUDs = new LinkedHashMap<String, Text>();
 
 	/**
 	 * This class cannot be instantiated.
@@ -63,7 +70,10 @@ public class EntityBuilder {
 			case ELEMENT:
 				elements.put(key, buildElement(properties[2]));
 				break;
+			case HUD:
+				break;
 			}
+
 		}
 	}
 
@@ -109,6 +119,7 @@ public class EntityBuilder {
 	}
 
 	public static void destoryEntities() {
+		levelData.clear();
 		backgrounds.clear();
 		elements.clear();
 	}

@@ -2,8 +2,6 @@ package gamestates;
 
 import java.awt.Graphics2D;
 
-import managers.GameStateManager;
-
 public abstract class GameState {
 
 	private final String LEVEL_PATH;

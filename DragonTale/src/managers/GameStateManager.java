@@ -1,7 +1,6 @@
 package managers;
 
 import gamestates.GameState;
-import gamestates.LoadingState;
 import tools.EntityBuilder;
 
 /**

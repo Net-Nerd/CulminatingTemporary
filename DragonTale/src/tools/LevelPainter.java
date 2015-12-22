@@ -7,6 +7,12 @@ import entities.Background;
 import entities.Element;
 import entities.Text;
 
+/**
+ * 
+ * @author Chandra Gummaluru
+ * @version 0..1.1
+ *
+ */
 public class LevelPainter{
 
 	private LevelPainter() {

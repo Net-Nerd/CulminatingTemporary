@@ -7,7 +7,7 @@ import managers.GameStateManager;
 
 public class Driver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		loadLoadingState();
 		initializeGame();
 		loadMenuState();
@@ -26,7 +26,7 @@ public class Driver {
 		GameStateManager.setState(new MenuState("/level_resources/menu.res.txt"));
 	}
 
-	public static void loadLoadingState() {
+	public static void loadLoadingState() throws InterruptedException {
 		GameStateManager.setState(new LoadingState("/level_resources/loading.res.txt"));
 	}
 }

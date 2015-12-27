@@ -13,7 +13,6 @@ public abstract class GameState {
 	}
 
 	public void initialize() {
-		
 	}
 
 	/**

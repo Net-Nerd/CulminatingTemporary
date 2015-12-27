@@ -1,5 +1,5 @@
-TEXT:LEVEL_DATA:/level_data/menu.dat.txt
-IMAGE:IMG_BLUE_SKY:/backgrounds/SKY_2.png
+TEXT_FILE:LEVEL_DATA:/level_data/menu.dat.txt
+IMAGE:IMG_BLUE_SKY:/backgrounds/SKY_1.png
 IMAGE:IMG_LARGE_GREEN_HILL:/backgrounds/HILL_2.png
 IMAGE:IMG_SMALL_GREEN_HILL:/backgrounds/HILL_1.png
 IMAGE:IMG_LARGE_CLOUD:/elements/CLOUD_LRG_1.png

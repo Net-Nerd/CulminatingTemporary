@@ -1,20 +1,22 @@
 package main;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import gamestates.LoadingState;
 import gamestates.MenuState;
 import managers.GameStateManager;
 
-public class Driver {
+public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
-		loadLoadingState();
 		initializeGame();
+		loadLoadingState();
 		loadMenuState();
 	}
 
 	public static void initializeGame() {
-		JFrame window = new JFrame("Dragon Tale");
+		JFrame window = new JFrame("Dragon Tale - Alpha 0.1");
 		window.setContentPane(new GamePanel());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);

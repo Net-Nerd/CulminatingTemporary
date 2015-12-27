@@ -1,2 +1,2 @@
-TEXT:LEVEL_DATA:/level_data/loading.dat.txt
+TEXT_FILE:LEVEL_DATA:/level_data/loading.dat.txt
 IMAGE:IMG_LOADING:/backgrounds/LDN_1.png

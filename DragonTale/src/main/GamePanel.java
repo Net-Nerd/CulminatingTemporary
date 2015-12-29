@@ -7,135 +7,95 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.text.DecimalFormat;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import managers.GameStateManager;
+import misc.AspectRatio;
 
 /**
- * A custom JPanel class that is used to create the main Panel within the game.
+ * Implements fields and methods for a custom JPanel with a specified aspect
+ * ratio and scale factor.
  * 
  * @author Chandra Gummaluru
- * @version 2.0
+ * @version 2.2
  *
  */
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The width of the panel.
+	 * The frame of the window.
 	 */
-	public static final int WIDTH = 320;
+	private JFrame frame;
 
 	/**
-	 * The height of the panel. The height is calculated to ensure a 5:4 aspect
-	 * ratio.
+	 * The factor by which to scale the resolution of the game.
 	 */
-	public static final int HEIGHT = WIDTH / 5 * 4;
+	private final int SCALE;
 
 	/**
-	 * The factor by which to scale the resolution of the game. By default, the
-	 * resolution is 320 by 256.
+	 * The aspect ratio of the panel.
 	 */
-	public static final int SCALE = getPreferredScale();
-
-	private Thread thread;
-	private boolean isRunning;
+	private final AspectRatio ASPECT_RATIO;
 
 	/**
-	 * The default refresh rate in number of frames per second.
+	 * The default color.
 	 */
-	private int FPS = 30;
+	private Color defaultColor = Color.BLACK;
 
 	/**
-	 * The target time in milliseconds for each frame.
+	 * Creates a new GamePanel using a specified width, aspect ratio, and scale
+	 * factor.
+	 * 
+	 * @param width
+	 *            The width of the panel.
+	 * @param scale
+	 *            The factor by which to scale the resolution of the game.
 	 */
-	private long targetTime = 1000 / FPS;
-
-	private Color defaultBackground = Color.BLACK;
-
-	// Temporary Variables
-	DecimalFormat df = new DecimalFormat("0.00");
-	private double currentFPS = 0.00;
-
-	/**
-	 * TODO Add documentation.
-	 */
-	public GamePanel() {
+	public GamePanel(int width, AspectRatio aspectRatio) {
 		super();
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setBackground(defaultBackground);
+
+		// set the required aspect ratio
+		this.ASPECT_RATIO = aspectRatio;
+
+		// set the minimum size of this panel.
+		this.setPreferredSize(new Dimension(width, ASPECT_RATIO.calculateHeight(width)));
+
+		// initialize the frame using this panel as the content pane.
+		this.frame = new JFrame();
+
+		// set the content pane of the frame to this panel.
+		frame.setContentPane(this);
+		frame.pack();
+
+		// set the scale to the preferred scale.
+		this.SCALE = getPreferredScale();
+	}
+
+	/**
+	 * Initializes the game window and makes it visible.
+	 */
+	public void initialize() {
+
+		// Re-scale the panel based on the calculated scale factor.
+		this.setPreferredSize(new Dimension(this.getWidth() * SCALE, this.getHeight() * SCALE));
+
+		// Set the frame properties.
+		frame.setTitle("");
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// Pack the frame.
+		frame.pack();
+
+		setBackground(defaultColor);
 		setFocusable(true);
 		requestFocus();
 
-		thread = new Thread(this);
-		thread.start();
-	}
-
-	private void initializeComponents() {
-		isRunning = true;
-	}
-
-	/**
-	 * This method is called upon the starting the thread.
-	 */
-	public void run() {
-		initializeComponents();
-
-		// The current frame count.
-		int frames = 0;
-
-		// The time (in nanoseconds) from the last update.
-		long previousUpdate = 0;
-
-		// This loop executes as long as the game is running.
-		while (isRunning) {
-			// the point in time (in nanoseconds) in which an iteration of the
-			// loop is started.
-			long startTime;
-
-			// the point in time (in nanoseconds) in which the same iteration of
-			// the loop is finished.
-			long endTime;
-
-			// the elapsed time (in milliseconds) between the start and end the
-			// iteration.
-			long elapsedTime;
-
-			// the time (in milliseconds) to wait, until the next iteration of
-			// the loop.
-			long waitTime;
-
-			if (frames > 29) {
-				// Calculate the amount of time (in seconds) it took, for the
-				// target frames to display.
-				currentFPS = 30 / ((System.nanoTime() - previousUpdate) / 1000000000.0);
-
-				// Reset the frame count.
-				frames = 0;
-				previousUpdate = System.nanoTime();
-			} else {
-				frames++;
-			}
-			startTime = System.nanoTime();
-
-			repaint();
-			GameStateManager.tick();
-			GameStateManager.handleInput();
-
-			endTime = System.nanoTime();
-
-			elapsedTime = (int) ((endTime - startTime) / 1000000);
-
-			waitTime = (int) (targetTime - elapsedTime);
-
-			try {
-				if (waitTime > 0) {
-					Thread.sleep(waitTime);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		this.setVisible(true);
+		frame.setVisible(true);
 	}
 
 	/**
@@ -144,12 +104,6 @@ public class GamePanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		GameStateManager.draw((Graphics2D) g);
-
-		// Display FPS for debugging
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.PLAIN, 10 * SCALE));
-		g.drawString("FPS: " + df.format(currentFPS) + "", 2 * SCALE, 10 * SCALE);
-		g.drawString("0.1a", 295 * SCALE, 10 * SCALE);
 	}
 
 	/**
@@ -158,12 +112,20 @@ public class GamePanel extends JPanel implements Runnable {
 	 * 
 	 * @return the preferred scale
 	 */
-	public static int getPreferredScale() {
+	public int getPreferredScale() {
 
-		// Gets the screen width based on the maximum window bounds.
+		// Get the width of the frame border by taking the difference of
+		// the frame width and panel width.
+		int borderWidth = frame.getWidth() - this.getWidth();
+
+		// Get the height of the frame border by taking the difference of
+		// the frame height and the panel height.
+		int borderHeight = frame.getHeight() - this.getHeight();
+
+		// Get the maximum width of the screen that can be used for display.
 		int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
 
-		// Gets the screen height based on the maximum window bounds.
+		// Get the maximum height of the screen that can be used for display.
 		int screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 
 		// The preferred scale for the window.
@@ -171,12 +133,17 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// This loop continues until the next possible scale factor becomes too
 		// large.
-		while (WIDTH * (preferredScale + 1) < screenWidth && HEIGHT * (preferredScale + 1) < screenHeight) {
+		while (this.getWidth() * (preferredScale + 1) < screenWidth - borderWidth
+				&& this.getHeight() * (preferredScale + 1) < screenHeight - borderHeight) {
 			// Increment the scale.
 			preferredScale++;
 		}
 
 		// Return the maximum scale factor.
 		return preferredScale;
+	}
+
+	public int getScale() {
+		return this.SCALE;
 	}
 }

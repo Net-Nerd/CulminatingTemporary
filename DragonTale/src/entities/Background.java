@@ -24,7 +24,6 @@ public class Background extends Entity {
 		this.DEFAULT_IMAGE = image;
 		setWidth(DEFAULT_IMAGE.getWidth());
 		setHeight(DEFAULT_IMAGE.getHeight());
-
 	}
 
 	/**

@@ -3,6 +3,7 @@ package entities;
 import java.awt.Graphics2D;
 
 import main.GamePanel;
+import main.Main;
 
 public abstract class Entity {
 
@@ -49,7 +50,7 @@ public abstract class Entity {
 	 * The constant at which to scale this instance. This field is final. This
 	 * field is static.
 	 */
-	public static final int SCALE = GamePanel.SCALE;
+	public static final int SCALE = Main.getGameWindow().getScale();
 
 	public Entity(double xPosition, double yPosition, int zPosition) {
 		setXPosition(xPosition);

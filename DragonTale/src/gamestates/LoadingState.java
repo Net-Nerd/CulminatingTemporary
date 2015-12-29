@@ -11,21 +11,20 @@ public class LoadingState extends GameState {
 	}
 
 	@Override
+	public void initialize() {
+	}
+
+	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
 		LevelPainter.drawLevel(g);
-		
 	}
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

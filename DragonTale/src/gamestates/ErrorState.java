@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import exceptions.LoadException;
 import main.GamePanel;
+import main.Main;
 
 /**
  * This state is loaded in when an error occurs within the game.
@@ -27,6 +28,10 @@ public class ErrorState extends GameState {
 	}
 
 	@Override
+	public void initialize() {
+	}
+
+	@Override
 	public void tick() {
 	}
 
@@ -37,15 +42,16 @@ public class ErrorState extends GameState {
 		// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		// RenderingHints.VALUE_ANTIALIAS_ON);
 
-		int panelCenterX = GamePanel.WIDTH * GamePanel.SCALE / 2;
-		int defaultYPosition = 50 * GamePanel.SCALE;
-		int textHeight = 10 * GamePanel.SCALE;
-		int defaultGap = 5 * GamePanel.SCALE;
+		int panelCenterX = Main.getGameWindow().getWidth() / 2;
+		int defaultYPosition = 50 * Main.getGameWindow().getScale();
+		int textHeight = 10 * Main.getGameWindow().getScale();
+		int defaultGap = 5 * Main.getGameWindow().getScale();
 
 		int currentSpacing = 0;
 
+		
 		for (int i = 0; i < ERROR_TEXT.length; i++) {
-			g.setFont(new Font("MS Sans Serif", Font.BOLD, fontSize[i] * GamePanel.SCALE));
+			g.setFont(new Font("Arial", Font.PLAIN, fontSize[i] * Main.getGameWindow().getScale()));
 			int textCenter = g.getFontMetrics().stringWidth(ERROR_TEXT[i]) / 2;
 			currentSpacing += lineSpacing[i];
 			g.drawString(ERROR_TEXT[i], panelCenterX - textCenter,
@@ -56,5 +62,4 @@ public class ErrorState extends GameState {
 	@Override
 	public void handleInput() {
 	}
-
 }

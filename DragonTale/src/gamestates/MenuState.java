@@ -6,7 +6,6 @@ import tools.LevelPainter;
 public class MenuState extends GameState {
 	public MenuState(String path) {
 		super(path);
-		// AudioManager.play(ResourceManager.getMusic().get("THEME"));
 	}
 
 	@Override
@@ -15,7 +14,6 @@ public class MenuState extends GameState {
 
 	@Override
 	public void tick() {
-
 	}
 
 	@Override
@@ -25,6 +23,5 @@ public class MenuState extends GameState {
 
 	@Override
 	public void handleInput() {
-
 	}
 }
